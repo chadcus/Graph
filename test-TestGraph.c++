@@ -10,29 +10,29 @@
 
 /*
 Google Test Libraries:
-% ls -al /usr/include/gtest/
-...
-gtest.h
-...
+    % ls -al /usr/include/gtest/
+    ...
+    gtest.h
+    ...
 
-% locate libgtest.a
-/usr/lib/libgtest.a
+    % locate libgtest.a
+    /usr/lib/libgtest.a
 
-% locate libpthread.a
-/usr/lib/x86_64-linux-gnu/libpthread.a
-/usr/lib32/libpthread.a
+    % locate libpthread.a
+    /usr/lib/x86_64-linux-gnu/libpthread.a
+    /usr/lib32/libpthread.a
 
-% locate libgtest_main.a
-/usr/lib/libgtest_main.a
+    % locate libgtest_main.a
+    /usr/lib/libgtest_main.a
 
 To compile the test:
-% g++-4.7 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -ggdb3 -Wall TestGraph.c++ -o TestGraph -lgtest -lgtest_main -lpthread
+    % g++-4.7 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -ggdb3 -Wall TestGraph.c++ -o TestGraph -lgtest -lgtest_main -lpthread
 
 To run the test:
-% valgrind TestGraph
+    % valgrind TestGraph
 
 To obtain coverage of the test:
-% gcov-4.7 -b Graph.c++ TestGraph.c++
+    % gcov-4.7 -b Graph.c++ TestGraph.c++
 */
 
 // --------
@@ -41,10 +41,10 @@ To obtain coverage of the test:
 
 #include <iostream> // cout, endl
 #include <iterator> // ostream_iterator
-#include <sstream> // ostringstream
-#include <utility> // pair
+#include <sstream>  // ostringstream
+#include <utility>  // pair
 
-#include "boost/graph/adjacency_list.hpp" // adjacency_list
+#include "boost/graph/adjacency_list.hpp"  // adjacency_list
 #include "boost/graph/topological_sort.hpp"// topological_sort
 
 #include "gtest/gtest.h"
@@ -52,14 +52,14 @@ To obtain coverage of the test:
 #include "Graph.h"
 using namespace std;
 
-#define FIXTURES typedef typename TestFixture::graph_type graph_type; \
-typedef typename TestFixture::vertex_descriptor vertex_descriptor; \
-typedef typename TestFixture::edge_descriptor edge_descriptor;\
-typedef typename TestFixture::vertex_iterator vertex_iterator;\
-typedef typename TestFixture::edge_iterator edge_iterator;\
-typedef typename TestFixture::adjacency_iterator adjacency_iterator;\
-typedef typename TestFixture::vertices_size_type vertices_size_type;\
-typedef typename TestFixture::edges_size_type edges_size_type;
+#define FIXTURES    typedef typename TestFixture::graph_type         graph_type; \
+                    typedef typename TestFixture::vertex_descriptor  vertex_descriptor; \
+                    typedef typename TestFixture::edge_descriptor    edge_descriptor;\
+                    typedef typename TestFixture::vertex_iterator    vertex_iterator;\
+                    typedef typename TestFixture::edge_iterator      edge_iterator;\
+                    typedef typename TestFixture::adjacency_iterator adjacency_iterator;\
+                    typedef typename TestFixture::vertices_size_type vertices_size_type;\
+                    typedef typename TestFixture::edges_size_type    edges_size_type;
 
 // ---------
 // TestGraph
@@ -71,14 +71,14 @@ struct TestGraph : testing::Test {
     // typedefs
     // --------
 
-    typedef G graph_type;
-    typedef typename G::vertex_descriptor vertex_descriptor;
-    typedef typename G::edge_descriptor edge_descriptor;
-    typedef typename G::vertex_iterator vertex_iterator;
-    typedef typename G::edge_iterator edge_iterator;
+    typedef          G                     graph_type;
+    typedef typename G::vertex_descriptor  vertex_descriptor;
+    typedef typename G::edge_descriptor    edge_descriptor;
+    typedef typename G::vertex_iterator    vertex_iterator;
+    typedef typename G::edge_iterator      edge_iterator;
     typedef typename G::adjacency_iterator adjacency_iterator;
     typedef typename G::vertices_size_type vertices_size_type;
-    typedef typename G::edges_size_type edges_size_type;};
+    typedef typename G::edges_size_type    edges_size_type;};
 
 // directed, sparse, unweighted
 // possibly connected
@@ -178,7 +178,7 @@ TYPED_TEST(TestGraph, add_vertex_51_vertices)
     ASSERT_EQ(vertex(50,g), 50);
 }
 
-TYPED_TEST(TestGraph, adjacent_vertices_0)
+TYPED_TEST(TestGraph, adjacent_vertices_0) 
 {
     FIXTURES
 
@@ -200,7 +200,7 @@ TYPED_TEST(TestGraph, adjacent_vertices_0)
     ASSERT_EQ(b, e);
 }
 
-TYPED_TEST(TestGraph, adjacent_vertices_1)
+TYPED_TEST(TestGraph, adjacent_vertices_1) 
 {
     FIXTURES
 
@@ -222,7 +222,7 @@ TYPED_TEST(TestGraph, adjacent_vertices_1)
     ASSERT_EQ(++b, e);
 }
 
-TYPED_TEST(TestGraph, Adjacent_Vertices_The_Sequel)
+TYPED_TEST(TestGraph, Adjacent_Vertices_The_Sequel) 
 {
     FIXTURES
 
@@ -290,8 +290,8 @@ TYPED_TEST(TestGraph, edge) {
 
     edge_descriptor edAB = add_edge(vdA, vdB, g).first;
 
-    std::pair<edge_descriptor, bool> p1 = add_edge(vdA, vdB, g);
-    ASSERT_EQ(edAB, p1.first);
+    std::pair<edge_descriptor, bool> p1 = add_edge(vdA, vdB, g); 
+    ASSERT_EQ(edAB,  p1.first);
     ASSERT_EQ(false, p1.second);
 
     std::pair<edge_descriptor, bool> p2 = edge(vdA, vdB, g);
@@ -336,8 +336,8 @@ TYPED_TEST(TestGraph, edges) {
     edge_descriptor edAC = add_edge(vdA, vdC, g).first;
 
     std::pair<edge_iterator, edge_iterator> p = edges(g);
-    edge_iterator b = p.first;
-    edge_iterator e = p.second;
+    edge_iterator                           b = p.first;
+    edge_iterator                           e = p.second;
     if (b != e) {
         edge_descriptor ed = *b;
         ASSERT_EQ(edAB, ed);}
@@ -359,8 +359,8 @@ TYPED_TEST(TestGraph, no_edges) {
     vertex_descriptor vdC = add_vertex(g);
 
     std::pair<edge_iterator, edge_iterator> p = edges(g);
-    edge_iterator b = p.first;
-    edge_iterator e = p.second;
+    edge_iterator                           b = p.first;
+    edge_iterator                           e = p.second;
     
     ASSERT_EQ(b, e);
 }
@@ -402,7 +402,7 @@ TYPED_TEST(TestGraph, edges_fully_connected) {
         ++itl;
     }
 }
-/*
+
 TYPED_TEST(TestGraph, edge_iterator_test) {
     FIXTURES
 
@@ -425,15 +425,15 @@ TYPED_TEST(TestGraph, edge_iterator_test) {
 
     edge_iterator it = p.first;
     edge_iterator end = p.second;
-	
+
     ++it;
     ++it;
     *it = add_edge(vdA, vdA, g).first;
 
     ASSERT_TRUE(edge(vdA, vdA, g).second);
 }
-*/
-TYPED_TEST(TestGraph, num_edges_0)
+
+TYPED_TEST(TestGraph, num_edges_0) 
 {
     FIXTURES
 
@@ -446,7 +446,7 @@ TYPED_TEST(TestGraph, num_edges_0)
     ASSERT_EQ(0, es);
 }
 
-TYPED_TEST(TestGraph, num_edges_1)
+TYPED_TEST(TestGraph, num_edges_1) 
 {
     FIXTURES
 
@@ -457,13 +457,13 @@ TYPED_TEST(TestGraph, num_edges_1)
 
     edge_descriptor edAB = add_edge(vdA, vdB, g).first;
 
-    add_edge(vdA, vdB, g);
+    add_edge(vdA, vdB, g); 
 
     edges_size_type es = num_edges(g);
     ASSERT_EQ(1, es);
 }
 
-TYPED_TEST(TestGraph, num_edges_2)
+TYPED_TEST(TestGraph, num_edges_2) 
 {
     FIXTURES
 
@@ -474,7 +474,7 @@ TYPED_TEST(TestGraph, num_edges_2)
 
     edge_descriptor edAB = add_edge(vdA, vdB, g).first;
 
-    add_edge(vdA, vdB, g);
+    add_edge(vdA, vdB, g); 
 
     edges_size_type es = num_edges(g);
     ASSERT_EQ(1, es);
@@ -535,7 +535,7 @@ TYPED_TEST(TestGraph, num_vertices_a_bunch) {
     ASSERT_EQ(16, vs);
 }
 
-TYPED_TEST(TestGraph, source_1)
+TYPED_TEST(TestGraph, source_1) 
 {
     FIXTURES
 
@@ -550,7 +550,7 @@ TYPED_TEST(TestGraph, source_1)
     ASSERT_EQ(vdA, vd1);
 }
 
-TYPED_TEST(TestGraph, source_2)
+TYPED_TEST(TestGraph, source_2) 
 {
     FIXTURES
 
@@ -568,7 +568,7 @@ TYPED_TEST(TestGraph, source_2)
     ASSERT_EQ(vdB, vb);
 }
 
-TYPED_TEST(TestGraph, source_cycle)
+TYPED_TEST(TestGraph, source_cycle) 
 {
     FIXTURES
 
@@ -593,8 +593,8 @@ TYPED_TEST(TestGraph, target_1)
 
     edge_descriptor edAB = add_edge(vdA, vdB, g).first;
 
-    std::pair<edge_descriptor, bool> p1 = add_edge(vdA, vdB, g);
-    ASSERT_EQ(edAB, p1.first);
+    std::pair<edge_descriptor, bool> p1 = add_edge(vdA, vdB, g); 
+    ASSERT_EQ(edAB,  p1.first);
     ASSERT_EQ(false, p1.second);
 
     std::pair<edge_descriptor, bool> p2 = edge(vdA, vdB, g);
@@ -605,7 +605,7 @@ TYPED_TEST(TestGraph, target_1)
     ASSERT_EQ(vdB, vd2);
 }
 
-TYPED_TEST(TestGraph, target_2)
+TYPED_TEST(TestGraph, target_2) 
 {
     FIXTURES
 
@@ -623,7 +623,7 @@ TYPED_TEST(TestGraph, target_2)
     ASSERT_EQ(vdA, v2);
 }
 
-TYPED_TEST(TestGraph, target_cycle)
+TYPED_TEST(TestGraph, target_cycle) 
 {
     FIXTURES
 
@@ -685,7 +685,7 @@ TYPED_TEST(TestGraph, vertex_none) {
     ASSERT_EQ(0, vd);
 }
 
-TYPED_TEST(TestGraph, vertex_iterator)
+TYPED_TEST(TestGraph, vertex_iterator) 
 {
     FIXTURES
 
@@ -697,7 +697,7 @@ TYPED_TEST(TestGraph, vertex_iterator)
     add_vertex(g);
     add_vertex(g);
 
-    std::pair<vertex_iterator, vertex_iterator> p = vertices(g);
+    std::pair<vertex_iterator, vertex_iterator> p = vertices(g); 
     vertex_iterator it = p.first;
     vertex_iterator end = p.second;
 
@@ -709,7 +709,7 @@ TYPED_TEST(TestGraph, vertex_iterator)
     ASSERT_EQ(it, end - 3);
 }
 
-TYPED_TEST(TestGraph, vertices)
+TYPED_TEST(TestGraph, vertices) 
 {
     FIXTURES
 
@@ -719,9 +719,9 @@ TYPED_TEST(TestGraph, vertices)
     vertex_descriptor vdB = add_vertex(g);
     vertex_descriptor vdC = add_vertex(g);
 
-    std::pair<vertex_iterator, vertex_iterator> p = vertices(g);
-    vertex_iterator b = p.first;
-    vertex_iterator e = p.second;
+    std::pair<vertex_iterator, vertex_iterator> p = vertices(g); 
+    vertex_iterator                             b = p.first;
+    vertex_iterator                             e = p.second;
     if (b != e) {
         vertex_descriptor vd = *b;
         ASSERT_EQ(vdA, vd);}
@@ -734,20 +734,20 @@ TYPED_TEST(TestGraph, vertices)
     ASSERT_EQ(e, b);
 }
 
-TYPED_TEST(TestGraph, vertices_no_vertices)
+TYPED_TEST(TestGraph, vertices_no_vertices) 
 {
     FIXTURES
 
     graph_type g;
 
-    std::pair<vertex_iterator, vertex_iterator> p = vertices(g);
+    std::pair<vertex_iterator, vertex_iterator> p = vertices(g); 
     vertex_iterator b = p.first;
     vertex_iterator e = p.second;
     
     ASSERT_EQ(b, e);
 }
 
-TYPED_TEST(TestGraph, vertices_one_vertex)
+TYPED_TEST(TestGraph, vertices_one_vertex) 
 {
     FIXTURES
 
@@ -755,7 +755,7 @@ TYPED_TEST(TestGraph, vertices_one_vertex)
 
     vertex_descriptor vdA = add_vertex(g);
 
-    std::pair<vertex_iterator, vertex_iterator> p = vertices(g);
+    std::pair<vertex_iterator, vertex_iterator> p = vertices(g); 
     vertex_iterator b = p.first;
     vertex_iterator e = p.second;
     ++b;
@@ -811,7 +811,7 @@ TYPED_TEST(TestGraph, Big_Graph)
         pair<adjacency_iterator, adjacency_iterator> adjacency_range = adjacent_vertices(*itv, g);
         adjacency_iterator itar = adjacency_range.first;
         while(itar != adjacency_range.second) {
-            ASSERT_TRUE(edge(*itv, *itar++, g).second);
+            ASSERT_TRUE(edge(*itv, *itar++, g).second); 
         }
         itv++;
     }

@@ -31,7 +31,7 @@ class Graph {
         typedef std::pair<vertex_descriptor, vertex_descriptor> edge_descriptor;    // fix!
 
         typedef std::vector<vertex_descriptor>::const_iterator vertex_iterator;    // fix!
-        typedef std::vector<edge_descriptor>::const_iterator edge_iterator;      // fix!
+        typedef std::vector<edge_descriptor>::iterator edge_iterator;      // fix!
         typedef std::vector<vertex_descriptor>::const_iterator adjacency_iterator; // fix!
 
         typedef std::size_t vertices_size_type;
@@ -103,7 +103,7 @@ class Graph {
          * @param Graph g const reference
          * return pair of edge descriptor and bool. Bool is false is edge doesn't exist
          */
-        friend std::pair<edge_descriptor, bool> edge (vertex_descriptor v1, vertex_descriptor v2, const Graph& g) {
+        friend std::pair<edge_descriptor, bool> edge (vertex_descriptor v1, vertex_descriptor v2, Graph& g) {
             edge_descriptor ed = std::make_pair(v1, v2);
 	        bool b = std::find(g._edge.begin(), g._edge.end(), ed) != g._edge.end();
             assert(g.valid());
@@ -117,7 +117,7 @@ class Graph {
          * @param Graph g by const reference
          * return pair of edges to show the begining and end of all edges
          */
-        friend std::pair<edge_iterator, edge_iterator> edges (const Graph& g) {
+        friend std::pair<edge_iterator, edge_iterator> edges (Graph& g) {
             edge_iterator b = g._edge.begin();
             edge_iterator e = g._edge.end();
             assert(g.valid());
