@@ -27,12 +27,12 @@ class Graph {
         // typedefs
         // --------
 
-        typedef int vertex_descriptor;  // fix!
-        typedef std::pair<vertex_descriptor, vertex_descriptor> edge_descriptor;    // fix!
+        typedef int vertex_descriptor;
+        typedef std::pair<vertex_descriptor, vertex_descriptor> edge_descriptor;
 
-        typedef std::vector<vertex_descriptor>::const_iterator vertex_iterator;    // fix!
-        typedef std::vector<edge_descriptor>::iterator edge_iterator;      // fix!
-        typedef std::vector<vertex_descriptor>::const_iterator adjacency_iterator; // fix!
+        typedef std::vector<vertex_descriptor>::const_iterator vertex_iterator;
+        typedef std::vector<edge_descriptor>::iterator edge_iterator;
+        typedef std::vector<vertex_descriptor>::const_iterator adjacency_iterator;
 
         typedef std::size_t vertices_size_type;
         typedef std::size_t edges_size_type;
@@ -88,10 +88,8 @@ class Graph {
          * return a new pair of adjacency iterators that are the beginning and end of adjacent vertices
          */
         friend std::pair<adjacency_iterator, adjacency_iterator> adjacent_vertices (vertex_descriptor v, const Graph& g) {
-            adjacency_iterator b = g._g[v].begin();
-            adjacency_iterator e = g._g[v].end();
             assert(g.valid());
-            return std::make_pair(b, e);}
+            return std::make_pair(g._g[v].begin(), g._g[v].end());}
 
         // ----
         // edge
@@ -118,10 +116,8 @@ class Graph {
          * return pair of edges to show the begining and end of all edges
          */
         friend std::pair<edge_iterator, edge_iterator> edges (Graph& g) {
-            edge_iterator b = g._edge.begin();
-            edge_iterator e = g._edge.end();
             assert(g.valid());
-            return std::make_pair(b, e);}
+            return std::make_pair(g._edge.begin(), g._edge.end());}
 
         // ---------
         // num_edges
@@ -132,9 +128,8 @@ class Graph {
          * return size of _edge
          */
         friend edges_size_type num_edges (const Graph& g) {
-            edges_size_type s = g._edge.size();
             assert(g.valid());
-            return s;}
+            return g._edge.size();}
 
         // ------------
         // num_vertices
@@ -145,9 +140,8 @@ class Graph {
          * return the size of _vertex
          */
         friend vertices_size_type num_vertices (const Graph& g) {
-            vertices_size_type s = g._vertex.size();
             assert(g.valid());
-            return s;}
+            return g._vertex.size();}
 
         // ------
         // source
@@ -159,9 +153,8 @@ class Graph {
          * return vertex descriptor that is the desired edge
          */
         friend vertex_descriptor source (edge_descriptor ed, const Graph& g) {
-            vertex_descriptor v = ed.first;
             assert(g.valid());
-            return v;}
+            return ed.first;}
 
         // ------
         // target
@@ -173,9 +166,8 @@ class Graph {
          * return vertex descriptor that sees if edge exists or not 
          */
         friend vertex_descriptor target (edge_descriptor ed, const Graph& g) {
-            vertex_descriptor v = ed.second;
             assert(g.valid());
-            return v;}
+            return ed.second;}
 
         // ------
         // vertex
@@ -190,9 +182,8 @@ class Graph {
 	        if(g._g.size() == 0){
 		      return 0;
 	        }
-            vertex_descriptor vd = g._vertex[v];
             assert(g.valid());
-            return vd;}
+            return g._vertex[v];}
 
         // --------
         // vertices
@@ -203,10 +194,8 @@ class Graph {
          * return pair of vertex iterators that are the beginning and end of the set of vertex 
          */
         friend std::pair<vertex_iterator, vertex_iterator> vertices (const Graph& g) {
-            vertex_iterator b = g._vertex.begin();
-            vertex_iterator e = g._vertex.end();
             assert(g.valid());
-            return std::make_pair(b, e);}
+            return std::make_pair(g._vertex.begin(), g._vertex.end());}
 
     private:
         // ----
