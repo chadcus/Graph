@@ -160,9 +160,6 @@ class Graph {
          * <your documentation>
          */
         friend vertex_descriptor vertex (vertices_size_type v, const Graph& g) {
-	    if(g._g.size() == 0){
-		return 0;
-	    }
             vertex_descriptor vd = g._vertex[v];
             return vd;}
 
